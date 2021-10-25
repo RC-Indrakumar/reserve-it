@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "reserve-it",
+    "slug": "reserve-it",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "reserve-it"
+}
