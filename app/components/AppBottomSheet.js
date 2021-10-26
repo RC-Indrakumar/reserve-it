@@ -26,12 +26,13 @@ export default function AppBottomSheet(props) {
 const styles = StyleSheet.create({
     childrenContainer: {
         backgroundColor: colors.halfWhite,
-        height: 300,
+        height: 350,
         padding: 10,
         paddingTop: 40
     },
     defaultContainerStyle: {
-        marginBottom: -35
+        marginBottom: -35,
+        backgroundColor: 'rgba(0, 0, 0, 0)'
     },
     icon: {
         position: 'absolute',
