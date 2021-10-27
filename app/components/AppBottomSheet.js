@@ -9,7 +9,7 @@ export default function AppBottomSheet(props) {
     const { isVisible, containerStyle, setIsVisible, children } = props;
     return (
         <BottomSheet isVisible={isVisible}
-            containerStyle={{ ...containerStyle, ...styles.defaultContainerStyle }}>
+            containerStyle={{ ...styles.defaultContainerStyle, ...containerStyle }}>
             <View style={styles.childrenContainer}>
                 <MaterialCommunityIcons
                     color={colors.grey}

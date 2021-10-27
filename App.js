@@ -9,6 +9,7 @@ const Stack = createNativeStackNavigator();
 
 const getScreenOptions = (screenName) => {
   const headerOptions = {
+    headerShown: true,
     headerStyle: {
       backgroundColor: colors.secondaryColor,
     },

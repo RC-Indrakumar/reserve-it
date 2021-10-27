@@ -1,24 +1,28 @@
 import React, { useRef } from 'react'
-import { StyleSheet, TextInput } from 'react-native'
+import { StyleSheet, TextInput, View, Keyboard } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-
 import colors from '../config/colors'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-export default function AppTextInput({ placeholder, icon, ...otherProps }) {
+export default function AppTextInput(props) {
+    const { editable, value, containerStyle, icon, isPasswordField, placeholder } = props;
     const inputEl = useRef(null);
+    const handleOnSubmitEditing = () => {
+        Keyboard.dismiss();
+    }
     return (
-        <TouchableWithoutFeedback
-            onPress={() => inputEl.current.focus()}
-            style={{ ...styles.container, ...otherProps.containerStyle }} >
+        <View
+            style={{ ...styles.container, ...containerStyle }} >
             {icon && <MaterialCommunityIcons name={icon} size={20} style={styles.icon} color={colors.grey} />}
             <TextInput
-                ref={inputEl}
+                editable={editable}
+                value={value}
                 onChangeText={(text) => { console.log(text) }}
-                placeholder={placeholder} {...otherProps}
-                secureTextEntry={otherProps.isPasswordField}
+                onSubmitEditing={handleOnSubmitEditing}
+                placeholder={placeholder}
+                secureTextEntry={isPasswordField}
+                ref={inputEl}
                 style={styles.text} />
-        </TouchableWithoutFeedback>
+        </View>
     )
 }
 
@@ -30,13 +34,14 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginHorizontal: 10,
         marginVertical: 5,
-        padding: 10,
+        padding: 10
     },
     icon: {
         marginRight: 10
     },
     text: {
         color: colors.grey,
-        fontSize: 20
+        fontSize: 20,
+        width: "100%"
     }
 })
