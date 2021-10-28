@@ -5,10 +5,11 @@ const initialState = {
     appointmentData: getAppointmentData()
 };
 
-function reducer(state, action) {
+function reducer(state = initialState, action) {
     switch (action.type) {
         case 'AddAppointment':
-            return action.payload;
+            state.appointmentData = { ...state.appointmentData, ...action.payload }
+            return state;
         case 'decrement':
             return { count: state.count - 1 };
         default:

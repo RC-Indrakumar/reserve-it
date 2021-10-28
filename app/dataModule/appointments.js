@@ -26,6 +26,7 @@ const getAppointments = (forDays = 3, fromDate = new Date()) => {
         const slotsToReturn = {};
         for (let day = 1; day <= forDays; day++) {
             slotsToReturn[day] = {
+                actualKey: day,
                 easyKey: dayjs(currentDate).format('DDMMYYYY'),
                 date: dayjs(currentDate).toISOString(),
                 availableSlots: generateSlots(),

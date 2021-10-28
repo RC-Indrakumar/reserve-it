@@ -16,26 +16,14 @@ export default function AddAppointment() {
     const [date, setDate] = useState(new Date());
     const [time, setTime] = useState(null);
     const [showDateTimePicker, setShowDateTimePicker] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(new Date());
     const [state, dispatch] = useCustomReducer();
-
-    const findSelectedAppointment = (currentDate) => {
-        const selectedDaysKey = dayjs(currentDate.toISOString()).format('DDMMYYYY').toString();
-        if (!_.isEmpty(state?.appointmentData)) {
-            const easyMap = _.mapKeys(state?.appointmentData, function (value, key) {
-                return value?.easyKey;
-            });
-            return !_.isEmpty(easyMap[selectedDaysKey]) ? easyMap[selectedDaysKey] : {};
-        }
-        return null;
-    }
-
-    const [selectedAppointment, setSelectedAppointment] = useState(findSelectedAppointment(new Date()));
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShowDateTimePicker(Platform.OS === 'ios');
         setDate(currentDate);
-        setSelectedAppointment(findSelectedAppointment(currentDate));
+        setSelectedDate(currentDate);
     };
 
     const getAppTextInput = (placeholder, icon, value = '', editable) => {
@@ -47,7 +35,19 @@ export default function AddAppointment() {
             icon={icon} />
     }
 
+    const findSelectedAppointment = (currentDate) => {
+        const selectedDaysKey = dayjs(currentDate.toISOString()).format('DDMMYYYY').toString();
+        if (!_.isEmpty(state?.appointmentData)) {
+            const easyMap = _.mapKeys(state?.appointmentData, function (value, key) {
+                return value?.easyKey;
+            });
+            return !_.isEmpty(easyMap[selectedDaysKey]) ? _.cloneDeep(easyMap[selectedDaysKey]) : {};
+        }
+        return null;
+    }
+
     const renderAvailableSlots = () => {
+        const selectedAppointment = findSelectedAppointment(selectedDate);
         if (!_.isEmpty(selectedAppointment)) {
             const availableRenderList = selectedAppointment?.availableSlots?.map((slot, index) => (
                 <TouchableWithoutFeedback key={`${index}_${slot}`} style={styles.slot} onPress={() => setTime(slot)}>
@@ -101,12 +101,14 @@ export default function AddAppointment() {
                 return value?.easyKey;
             });
             if (!_.isEmpty(easyMap[selectedDaysKey])) {
-                const selectedAppointmentData = easyMap[selectedDaysKey];
+                const selectedAppointmentData = _.cloneDeep(easyMap[selectedDaysKey]);
                 const index = selectedAppointmentData.availableSlots.indexOf(time);
                 if (index !== -1) selectedAppointmentData?.availableSlots?.splice(index, 1);
                 selectedAppointmentData.bookedSlots.push(time);
                 selectedAppointmentData.bookedInfo.push({ name: '', phone: '', otherInfo: '' });
-                dispatch({ type: 'AddAppointment', payload: state?.appointmentData });
+                const payload = {}
+                payload[selectedAppointmentData.actualKey] = selectedAppointmentData;
+                dispatch({ type: 'AddAppointment', payload });
             }
         }
         // Show Alert!
