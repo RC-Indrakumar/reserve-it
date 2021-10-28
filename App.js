@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './app/Screens/HomeScreen';
 import AppointmentsScreen from './app/Screens/AppointmentsScreen';
 import colors from './app/config/colors';
+import useCustomReducer from './app/reducers/AppointmentReducer';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,11 @@ const getScreenOptions = (screenName) => {
 }
 
 export default function App() {
+  const [state, dispatch] = useCustomReducer();
+  useEffect(() => {
+    dispatch({ type: 'REHYDRATE' });
+  }, []);
+
   return (<NavigationContainer>
     <Stack.Navigator initialRouteName="HomeScreen">
       <Stack.Screen name="HomeScreen" component={HomeScreen} options={getScreenOptions("HomeScreen")} />

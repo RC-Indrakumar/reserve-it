@@ -1,3 +1,4 @@
 export default {
-    BookingHorizon: 3
+    BookingHorizon: 3,
+    StorageKey: '@APPOINTMENT_DATA'
 }

@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import colors from '../config/colors'
 
 export default function AppTextInput(props) {
-    const { editable, value, containerStyle, icon, isPasswordField, placeholder } = props;
+    const { value, onChange = (text) => { console.log(text) }, containerStyle, icon, isPasswordField, placeholder, otherProps = {} } = props;
     const inputEl = useRef(null);
     const handleOnSubmitEditing = () => {
         Keyboard.dismiss();
@@ -14,14 +14,15 @@ export default function AppTextInput(props) {
             style={{ ...styles.container, ...containerStyle }} >
             {icon && <MaterialCommunityIcons name={icon} size={20} style={styles.icon} color={colors.grey} />}
             <TextInput
-                editable={editable}
                 value={value}
-                onChangeText={(text) => { console.log(text) }}
+                onChangeText={onChange}
                 onSubmitEditing={handleOnSubmitEditing}
                 placeholder={placeholder}
                 secureTextEntry={isPasswordField}
                 ref={inputEl}
-                style={styles.text} />
+                style={styles.text}
+                {...otherProps}
+            />
         </View>
     )
 }

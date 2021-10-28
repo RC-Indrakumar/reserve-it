@@ -6,6 +6,7 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
+import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 
 import expo.modules.ReactActivityDelegateWrapper;
 
@@ -17,6 +18,15 @@ public class MainActivity extends ReactActivity {
     // This is required for expo-splash-screen.
     setTheme(R.style.AppTheme);
     super.onCreate(null);
+  }
+
+  @Override
+  protected List<ReactPackage> getPackages() {
+    @SuppressWarnings("UnnecessaryLocalVariable")
+    List<ReactPackage> packages = new PackageList(this).getPackages();
+    // Packages that cannot be autolinked yet can be added manually here, for example:
+    packages.add(new RNDateTimePickerPackage());
+    return packages;
   }
 
   /**
