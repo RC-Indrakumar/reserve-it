@@ -35,7 +35,7 @@ To Run in Local...
 ## Features that are yet to be developed
 
 - Login and Registration are just for UI Purposes. We can directly proceed without entering values.
-- Data are being stored locally.
+- Booking Data are being stored locally.
 
 
 ## License 😜
