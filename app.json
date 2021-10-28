@@ -5,7 +5,13 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "ios": {
+      "bundleIdentifier": "co.buggyapp.reserve-it"
+    },
+    "android": {
+      "package": "com.indrakumarrc.reserveit"
+    }
   },
   "name": "reserve-it"
 }
