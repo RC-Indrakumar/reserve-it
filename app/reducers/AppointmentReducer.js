@@ -22,17 +22,18 @@ storeData(initialState);
 const getData = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem(appConfig.StorageKey);
-        return jsonValue != null ? JSON.parse(jsonValue) : null;
+        return jsonValue != null ? Promise.resolve(JSON.parse(jsonValue)) : Promise.resolve(null);
     } catch (e) {
         console.error('Async Storage Error Reading Value.');
     }
 }
 
-async function reducer(state = initialState, action) {
+function reducer(state = initialState, action) {
     switch (action.type) {
         case 'REHYDRATE': {
-            const prevData = await getData();
-            !isEmpty(prevData) && (state = prevData);
+            getData()?.then((value) => {
+                !isEmpty(value) && (state = value);
+            });
             break;
         }
         case 'ADD_APPOINTMENT': {
