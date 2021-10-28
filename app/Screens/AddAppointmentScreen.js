@@ -93,7 +93,7 @@ export default function AddAppointment() {
             value: date,
             mode: 'date',
             is24Hour: true,
-            display: Platform.OS === "ios" ? "spinner" : "calendar",
+            display: Platform.OS === "ios" ? "spinner" : "default",
             onChange,
             maximumDate,
             minimumDate,
@@ -155,7 +155,7 @@ export default function AddAppointment() {
     }
 
     const formattedDate = dayjs(date.toISOString()).format('MMM DD YYYY');
-    const formattedDateTime = `${formattedDate} ${slot ? ', ' + slot : ''}`;
+    const formattedDateTime = `${formattedDate}${slot ? ', ' + slot : ''}`;
 
     return (
         <View style={styles.container}>

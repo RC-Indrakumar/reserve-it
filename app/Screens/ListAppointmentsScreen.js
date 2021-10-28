@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginHorizontal: 10,
         padding: 10,
-        marginTop: Platform.OS === "android" ? 40 : 0,
+        marginTop: Platform.OS === "android" ? 50 : 0,
     },
     tabsContainer: {
         marginVertical: 5,
