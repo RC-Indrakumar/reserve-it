@@ -44,6 +44,8 @@ MIT.
 
 🦊 Happy Coding ;)
 
+## iOS Simulator Build Link
+https://expo.dev/artifacts/e7b0391c-8732-4500-8c9a-2540417983ab
 
 ## AppFlowVideo-iOS
 https://user-images.githubusercontent.com/29482154/139339591-42d420de-553f-4d28-bd3e-99c843d98e6d.mov
