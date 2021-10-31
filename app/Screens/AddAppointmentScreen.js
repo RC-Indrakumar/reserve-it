@@ -112,8 +112,8 @@ export default function AddAppointment() {
                 checkIsUpcomingSlot(slot) && <TouchableWithoutFeedback key={`${index}_${slot}`} style={styles.slot} onPress={() => setSlot(slot)}>
                     <Text>{slot}</Text>
                 </TouchableWithoutFeedback>
-            ));
-            if (availableRenderList)
+            )).filter(value => value);
+            if (availableRenderList.length)
                 return <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {availableRenderList}
                 </ScrollView>
