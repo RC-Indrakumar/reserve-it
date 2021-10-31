@@ -1,12 +1,12 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
-import { View, Text, StyleSheet, SafeAreaView, FlatList, Platform } from 'react-native';
+import { isEmpty } from 'lodash';
 import dayjs from 'dayjs';
-import _ from 'lodash';
-
-import useCustomReducer from '../reducers/AppointmentReducer';
+import React, { useState, useCallback, useEffect } from 'react';
+import { View, Text, StyleSheet, SafeAreaView, FlatList, Platform } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import SegmentedControlTab from 'react-native-segmented-control-ui'
+
 import colors from '../config/colors';
+import useCustomReducer from '../reducers/AppointmentReducer';
 
 export default function ListAppointmentsScreen({ navigation }) {
     const [refresh, setRefresh] = useState(false);
@@ -18,9 +18,7 @@ export default function ListAppointmentsScreen({ navigation }) {
         !refresh && setRefresh(true);
     }, []));
 
-    const unsubscribe = navigation.addListener('blur', () => {
-        setRefresh(false)
-    });
+    const unsubscribe = navigation.addListener('blur', () => { setRefresh(false) });
 
     useEffect(() => () => unsubscribe(), []);
     /** Trick - Ends */
@@ -30,10 +28,14 @@ export default function ListAppointmentsScreen({ navigation }) {
     const getAppointments = () => {
         const upcomingAppointments = [];
         const pastAppointments = [];
-        const appointmentData = state.appointmentData;
-        let totalAppointments = [];
-        if (!_.isEmpty(appointmentData)) {
-            Object.keys(appointmentData)?.forEach((key) => totalAppointments.push(...appointmentData[key].bookedInfo));
+        const upcomingAppointmentsFromState = state.upcomingAppointments;
+        const pastAppointmentsFromState = state.pastAppointments;
+        const totalAppointments = [];
+        if (!isEmpty(upcomingAppointmentsFromState)) {
+            Object.keys(upcomingAppointmentsFromState)
+                ?.forEach((key) => totalAppointments.push(...upcomingAppointmentsFromState[key].bookedInfo));
+            Object.keys(pastAppointmentsFromState)
+                ?.forEach((key) => totalAppointments.push(...pastAppointmentsFromState[key].bookedInfo));
             totalAppointments?.forEach(appointment => {
                 dayjs(appointment?.dateAndTime).isAfter(new Date())
                     ? upcomingAppointments.push(appointment)

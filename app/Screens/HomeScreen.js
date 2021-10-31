@@ -28,19 +28,21 @@ export default function HomeScreen({ navigation }) {
         };
         return (
             <>
-                <AppButton buttonStyle={styles.loginButtonStyle}
-                    containerStyle={styles.buttonContainerStyle}
-                    onPress={onPressLogin}
-                    title="Login"
-                    titleStyle={styles.buttonTitleStyle}
-                />
-                <AppButton
-                    buttonStyle={styles.registerButtonStyle}
-                    containerStyle={styles.buttonContainerStyle}
-                    onPress={onPressRegistration}
-                    title="Register"
-                    titleStyle={styles.buttonTitleStyle}
-                />
+                <View style={styles.loginRegistrationButtonContainer}>
+                    <AppButton buttonStyle={styles.loginButtonStyle}
+                        containerStyle={styles.buttonContainerStyle}
+                        handleOnPress={onPressLogin}
+                        title="Login"
+                        titleStyle={styles.buttonTitleStyle}
+                    />
+                    <AppButton
+                        buttonStyle={styles.registerButtonStyle}
+                        containerStyle={styles.buttonContainerStyle}
+                        handleOnPress={onPressRegistration}
+                        title="Register"
+                        titleStyle={styles.buttonTitleStyle}
+                    />
+                </View>
             </>);
     }
 
@@ -52,7 +54,7 @@ export default function HomeScreen({ navigation }) {
         return (<>
             <AppTextInput containerStyle={styles.inputContainerStyle} placeholder="Email" icon="email" ></AppTextInput>
             <AppTextInput containerStyle={styles.inputContainerStyle} isPasswordField placeholder="Password" icon="lock" ></AppTextInput>
-            <AppButton containerStyle={{ marginTop: 10 }} onPress={onPressSign} title="Sign In" />
+            <AppButton containerStyle={{ marginTop: 10 }} handleOnPress={onPressSign} title="Sign In" />
             <AppText style={styles.loginRegisterMessage} text="🎉 Good to see you again!" />
         </>);
     }
@@ -66,7 +68,7 @@ export default function HomeScreen({ navigation }) {
             <AppTextInput containerStyle={styles.inputContainerStyle} placeholder="Name" icon="account" ></AppTextInput>
             <AppTextInput containerStyle={styles.inputContainerStyle} placeholder="Email" icon="email" ></AppTextInput>
             <AppTextInput containerStyle={styles.inputContainerStyle} isPasswordField placeholder="Password" icon="lock" ></AppTextInput>
-            <AppButton containerStyle={{ marginTop: 10 }} onPress={onPressRegistration} title="Sign Up" />
+            <AppButton containerStyle={{ marginTop: 10 }} handleOnPress={onPressRegistration} title="Sign Up" />
             <AppText style={styles.loginRegisterMessage} text="🙇🏻 Welcome aboard!" />
         </>);
     }
@@ -91,7 +93,6 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     buttonContainerStyle: {
-        width: "90%",
         marginVertical: 5
     },
     imageBackground: {
@@ -115,10 +116,14 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100
     },
+    loginRegistrationButtonContainer: {
+        alignSelf: "center",
+        marginBottom: 25,
+        width: "100%"
+    },
     registerButtonStyle: {
         backgroundColor: colors.secondaryColor,
         color: colors.halfWhite,
-        marginBottom: 25
     },
     tagLine: {
         color: colors.halfWhite,

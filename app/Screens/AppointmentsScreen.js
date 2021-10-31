@@ -34,7 +34,7 @@ const getScreenOptions = (screenName) => {
 }
 
 
-export default function AppointmentsScreen({ navigation, appointmentData }) {
+export default function AppointmentsScreen({ navigation }) {
     const TabNavigatorProps = {
         activeColor: colors.secondaryColor,
         backBehavior: "none",

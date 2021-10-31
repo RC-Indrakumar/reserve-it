@@ -5,12 +5,12 @@ import { Button } from 'react-native-elements'
 import colors from '../config/colors'
 
 export default function AppButton(props) {
-    const { buttonStyle, containerStyle, title, titleStyle, onPress = () => { } } = props;
+    const { buttonStyle, containerStyle, title, titleStyle, handleOnPress = () => { } } = props;
     return (
         <Button
             buttonStyle={[styles.buttonStyle, buttonStyle]}
             containerStyle={containerStyle}
-            onPress={onPress}
+            onPress={handleOnPress}
             title={title}
             titleStyle={titleStyle}></Button>
     )

@@ -1,4 +1,9 @@
 export default {
-    BookingHorizon: 3,
-    StorageKey: '@APPOINTMENT_DATA'
+    dailyStartHour: 10,
+    totalWorkingHours: 9,
+    slotFormat: 24,
+    bookingHorizon: 3,
+    canBookBefore_InMinutes: 5,
+    allowPersistedData: true,
+    storageKey: '@APPOINTMENT_DATA'
 }

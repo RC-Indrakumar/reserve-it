@@ -43,6 +43,6 @@ const styles = StyleSheet.create({
     text: {
         color: colors.grey,
         fontSize: 20,
-        width: "100%"
+        width: "90%"
     }
 })

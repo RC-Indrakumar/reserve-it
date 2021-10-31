@@ -4,7 +4,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './app/Screens/HomeScreen';
 import AppointmentsScreen from './app/Screens/AppointmentsScreen';
 import colors from './app/config/colors';
-import useCustomReducer from './app/reducers/AppointmentReducer';
+import useCustomReducer, { getData } from './app/reducers/AppointmentReducer';
+import { isEmpty } from 'lodash';
+import { getAppointmentData } from './app/dataModule/appointments';
+import appConfig from './app/config/appConfig';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,8 +33,20 @@ const getScreenOptions = (screenName) => {
 
 export default function App() {
   const [state, dispatch] = useCustomReducer();
-  useEffect(() => {
-    dispatch({ type: 'REHYDRATE' });
+  useEffect(async () => {
+    /** 
+     * REHYDRATING the data from async storage, to update existing bookings into the App State.
+     * 
+     * Since we are not stoing the data anywhere in servers as of now. So, this ways we can achieve showing an 
+     * existing appointments to the user, even though the user has cleared the app data from the recent history.
+     */
+    const persistedData = appConfig.allowPersistedData ? await getData() : null;
+    if (!isEmpty(persistedData)) {
+      const [upcomingAppointments, pastAppointments] = getAppointmentData(persistedData.upcomingAppointments);
+      persistedData.upcomingAppointments = upcomingAppointments;
+      persistedData.pastAppointments = pastAppointments;
+      dispatch({ type: 'REHYDRATE', persistedData });
+    }
   }, []);
 
   return (<NavigationContainer>
